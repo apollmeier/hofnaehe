@@ -6,9 +6,13 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                "barlow": ["Barlow", "sans-serif"],
+                "barlow-condensed": ["Barlow Condensed", "sans-serif"]
+            }
+        },
     },
-    plugins: [],
     plugins: [require("@tailwindcss/forms")],
 }
 
