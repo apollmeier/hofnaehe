@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('user', function () {
-    echo 'USER AREA';
-})->middleware(['auth', 'verified']);
+Route::prefix('user')->middleware(['verified'])->group(function () {
+    Route::get('/', function () {
+        echo 'USER AREA';
+    });
+
+    Route::resource('locations', LocationController::class);
+});
