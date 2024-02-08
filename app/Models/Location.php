@@ -13,6 +13,7 @@ class Location extends Model
         'street',
         'zipcode',
         'city',
+        'country_id',
         'website',
         'email',
         'phone',
@@ -21,5 +22,10 @@ class Location extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
     }
 }

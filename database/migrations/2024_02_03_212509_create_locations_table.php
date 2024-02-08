@@ -8,6 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('code', 2);
+            $table->string('name', 64);
+            $table->timestamps();
+        });
+
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
@@ -15,6 +22,7 @@ return new class extends Migration
             $table->string('street', 64);
             $table->string('zipcode', 5);
             $table->string('city', 64);
+            $table->foreignId('country_id')->constrained('countries');
             $table->string('website', 128)->nullable();
             $table->string('email', 128)->nullable();
             $table->string('phone', 32)->nullable();
@@ -24,6 +32,7 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::dropIfExists('countries');
         Schema::dropIfExists('locations');
     }
 };
