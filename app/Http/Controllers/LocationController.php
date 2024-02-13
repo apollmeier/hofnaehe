@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
+use App\Models\Country;
 use App\Models\Location;
 
 class LocationController extends Controller
@@ -13,7 +14,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
+        $locations = Location::with('country')->get();
 
         return view('pages.user.locations.index', [
             'locations' => $locations,
@@ -25,7 +26,11 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('pages.user.locations.create');
+        $countries = Country::all();
+
+        return view('pages.user.locations.create', [
+            'countries' => $countries,
+        ]);
     }
 
     /**
@@ -39,6 +44,7 @@ class LocationController extends Controller
             'street' => $request->street,
             'zipcode' => $request->zipcode,
             'city' => $request->city,
+            'country_id' => $request->country,
             'website' => $request->website,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -62,8 +68,11 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
+        $countries = Country::all();
+
         return view('pages.user.locations.edit', [
             'location' => $location,
+            'countries' => $countries,
         ]);
     }
 

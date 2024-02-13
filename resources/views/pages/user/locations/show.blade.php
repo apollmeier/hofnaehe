@@ -6,6 +6,7 @@
                 <address>
                     <p>{{ $location->street }}</p>
                     <p>{{ $location->zipcode }} {{ $location->city }}</p>
+                    <p>{{ $location->country->name }}</p>
                 </address>
                 @if ( $location->email )
                     <p>{{ $location->email }}</p>

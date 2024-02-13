@@ -11,6 +11,12 @@
                 <input type="text" name="street" id="street" placeholder="Straße" value="{{ old('street', $location->street) }}"/>
                 <input type="text" name="zipcode" id="zipcode" placeholder="PLZ" value="{{ old('zipcode', $location->zipcode) }}"/>
                 <input type="text" name="city" id="city" placeholder="Ort" value="{{ old('city', $location->city) }}"/>
+                <select name="country" id="country">
+                    <option value="" @selected(!old('country', $location->country->id)) disabled>Land auswählen</option>
+                    @foreach ($countries as $country)
+                        <option value="{{ $country['id'] }}" @selected(old('country', $location->country->id) == $country['id'])>{{ $country['name'] }}</option>
+                    @endforeach
+                </select>
                 <input type="text" name="website" id="website" placeholder="Webseite" value="{{ old('website', $location->website) }}"/>
                 <input type="email" name="email" id="email" placeholder="E-Mail-Adresse" value="{{ old('email', $location->email) }}"/>
                 <input type="text" name="phone" id="phone" placeholder="Telefon" value="{{ old('phone', $location->phone) }}"/>

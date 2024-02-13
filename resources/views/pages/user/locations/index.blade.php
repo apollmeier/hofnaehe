@@ -10,6 +10,7 @@
                             <address>
                                 <p>{{ $location->street }}</p>
                                 <p>{{ $location->zipcode }} {{ $location->city }}</p>
+                                <p>{{ $location->country->name }}</p>
                             </address>
                             <a href="{{ route('locations.show', $location->id) }}">Anzeigen</a>
                             <a href="{{ route('locations.edit', $location->id) }}">Bearbeiten</a>
