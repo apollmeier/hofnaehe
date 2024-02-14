@@ -9,6 +9,7 @@ class Location extends Model
 {
     protected $fillable = [
         'user_id',
+        'location_type_id',
         'name',
         'street',
         'zipcode',
@@ -27,5 +28,10 @@ class Location extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function locationType(): BelongsTo
+    {
+        return $this->belongsTo(LocationType::class, 'location_type_id');
     }
 }

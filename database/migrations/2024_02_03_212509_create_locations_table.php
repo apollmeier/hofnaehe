@@ -15,9 +15,16 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('location_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 255)->unique();
+            $table->timestamps();
+        });
+
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('location_type_id')->constrained('location_types');
             $table->string('name', 256);
             $table->string('street', 64);
             $table->string('zipcode', 5);
