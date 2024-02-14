@@ -6,6 +6,12 @@
             <form action="{{ route('locations.store') }}" method="post" class="flex flex-col gap-4">
                 @csrf
 
+                <select name="location_type" id="location_type">
+                    <option value="" @selected(!old('location_type')) disabled>Typ auswählen</option>
+                    @foreach ($location_types as $type)
+                        <option value="{{ $type['id'] }}" @selected(old('location_type') === $type['id'])>{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
                 <input type="text" name="name" id="name" placeholder="Name" value="{{ old('name') }}"/>
                 <input type="text" name="street" id="street" placeholder="Straße" value="{{ old('street') }}"/>
                 <input type="text" name="zipcode" id="zipcode" placeholder="PLZ" value="{{ old('zipcode') }}"/>

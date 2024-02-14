@@ -6,7 +6,7 @@
                 <ul>
                     @foreach ($locations as $location)
                         <li class="mb-4 last:mb-0">
-                            <h3>{{ $location->name }}</h3>
+                            <h3>{{ $location->name }} <small>({{ $location->locationType->name }})</small></h3>
                             <address>
                                 <p>{{ $location->street }}</p>
                                 <p>{{ $location->zipcode }} {{ $location->city }}</p>

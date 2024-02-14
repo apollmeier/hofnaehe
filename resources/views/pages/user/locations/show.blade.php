@@ -2,7 +2,7 @@
     <section class="p-4">
         <div class="max-w-sm w-full mx-auto">
             @if ($location )
-                <h2>{{ $location->name }}</h2>
+                <h2>{{ $location->name }} <small>({{ $location->locationType->name }})</small></h2>
                 <address>
                     <p>{{ $location->street }}</p>
                     <p>{{ $location->zipcode }} {{ $location->city }}</p>

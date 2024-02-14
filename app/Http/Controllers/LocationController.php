@@ -6,6 +6,7 @@ use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Country;
 use App\Models\Location;
+use App\Models\LocationType;
 
 class LocationController extends Controller
 {
@@ -14,7 +15,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::with('country')->get();
+        $locations = Location::with(['country', 'locationType'])->get();
 
         return view('pages.user.locations.index', [
             'locations' => $locations,
@@ -27,9 +28,11 @@ class LocationController extends Controller
     public function create()
     {
         $countries = Country::all();
+        $location_types = LocationType::all();
 
         return view('pages.user.locations.create', [
             'countries' => $countries,
+            'location_types' => $location_types,
         ]);
     }
 
@@ -40,6 +43,7 @@ class LocationController extends Controller
     {
         Location::create([
             'user_id' => $request->user()->id,
+            'location_type_id' => $request->location_type,
             'name' => $request->name,
             'street' => $request->street,
             'zipcode' => $request->zipcode,
@@ -69,10 +73,13 @@ class LocationController extends Controller
     public function edit(Location $location)
     {
         $countries = Country::all();
+        $location_types = LocationType::all();
 
         return view('pages.user.locations.edit', [
             'location' => $location,
             'countries' => $countries,
+            'location_types' => $location_types,
+
         ]);
     }
 
@@ -82,6 +89,7 @@ class LocationController extends Controller
     public function update(UpdateLocationRequest $request, Location $location)
     {
         $location->fill([
+            'location_type_id' => $request->location_type,
             'name' => $request->name,
             'street' => $request->street,
             'zipcode' => $request->zipcode,

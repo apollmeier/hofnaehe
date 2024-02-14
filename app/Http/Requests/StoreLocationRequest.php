@@ -22,6 +22,7 @@ class StoreLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'location_type' => 'required|numeric|exists:App\Models\LocationType,id',
             'name' => 'required|max:255',
             'street' => 'required|max:64',
             'zipcode' => 'required|numeric|digits:5',

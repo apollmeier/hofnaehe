@@ -7,6 +7,12 @@
                 @csrf
                 @method('put')
 
+                <select name="location_type" id="location_type">
+                    <option value="" @selected(!old('location_type', $location->locationType->id)) disabled>Typ auswählen</option>
+                    @foreach ($location_types as $type)
+                        <option value="{{ $type['id'] }}" @selected(old('location_type', $location->locationType->id) == $location['id'])>{{ $type['name'] }}</option>
+                    @endforeach
+                </select>
                 <input type="text" name="name" id="name" placeholder="Name" value="{{ old('name', $location->name) }}"/>
                 <input type="text" name="street" id="street" placeholder="Straße" value="{{ old('street', $location->street) }}"/>
                 <input type="text" name="zipcode" id="zipcode" placeholder="PLZ" value="{{ old('zipcode', $location->zipcode) }}"/>
