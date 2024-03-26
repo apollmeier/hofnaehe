@@ -11,6 +11,14 @@ use App\Models\LocationType;
 class LocationController extends Controller
 {
     /**
+     * Create the controller instance.
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Location::class, 'location');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
