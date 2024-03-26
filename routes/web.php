@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LocationController;
+use App\Http\Controllers\User\LocationController;
 use Illuminate\Support\Facades\Route;
 
 /*
