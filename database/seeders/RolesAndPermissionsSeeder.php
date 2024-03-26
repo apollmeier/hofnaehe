@@ -23,5 +23,18 @@ class RolesAndPermissionsSeeder extends Seeder
         // create super-admin role and grant all permissions
         $role = Role::create(['name' => 'Super Admin']);
         $role->givePermissionTo(Permission::all());
+
+        // create admin role and grant permissions
+        $role = Role::create(['name' => 'Admin']);
+        $role->givePermissionTo(Permission::all());
+
+        // create owner role and grant permissions
+        $role = Role::create(['name' => 'Owner']);
+        $role->givePermissionTo([
+            'create locations',
+            'view own locations',
+            'update own locations',
+            'delete own locations',
+        ]);
     }
 }
