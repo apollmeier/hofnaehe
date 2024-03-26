@@ -23,7 +23,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::with(['country', 'locationType'])->get();
+        $locations = Location::owned()->with(['country', 'locationType'])->get();
 
         return view('pages.user.locations.index', [
             'locations' => $locations,
