@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('zipcode', 5);
             $table->string('city', 64);
             $table->foreignId('country_id')->constrained('countries');
+            $table->decimal('latitude', 8, 6)->nullable();
+            $table->decimal('longitude', 9, 6)->nullable();
             $table->string('website', 128)->nullable();
             $table->string('email', 128)->nullable();
             $table->string('phone', 32)->nullable();
