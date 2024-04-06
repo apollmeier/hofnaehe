@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
+use App\Jobs\GeocodeAddress;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\LocationType;
@@ -50,7 +51,7 @@ class LocationController extends Controller
      */
     public function store(StoreLocationRequest $request)
     {
-        Location::create([
+        $location = Location::create([
             'user_id' => $request->user()->id,
             'location_type_id' => $request->location_type,
             'name' => $request->name,
@@ -62,6 +63,8 @@ class LocationController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
+
+        GeocodeAddress::dispatch($location);
 
         return to_route('locations.index');
     }
@@ -103,10 +106,15 @@ class LocationController extends Controller
             'street' => $request->street,
             'zipcode' => $request->zipcode,
             'city' => $request->city,
+            'country_id' => $request->country,
             'website' => $request->website,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
+
+        if ($location->isDirty(['street', 'zipcode', 'city', 'country_id'])) {
+            GeocodeAddress::dispatch($location);
+        }
 
         $location->save();
 
