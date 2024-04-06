@@ -27,5 +27,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
         ]);
         $user->assignRole('Admin');
+
+        // create owner
+        $user = User::factory()->create([
+            'email' => 'owner@hofnaehe.de',
+            'password' => Hash::make('owner'),
+        ]);
+        $user->assignRole('Owner');
     }
 }

@@ -16,12 +16,30 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create admin role and grant permissions
-        $role = Role::create(['name' => 'Admin']);
-        $role->givePermissionTo([]);
+        // location permissions
+        Permission::create(['name' => 'create locations']);
+        Permission::create(['name' => 'view own locations']);
+        Permission::create(['name' => 'view any locations']);
+        Permission::create(['name' => 'update own locations']);
+        Permission::create(['name' => 'update any locations']);
+        Permission::create(['name' => 'delete own locations']);
+        Permission::create(['name' => 'delete any locations']);
 
         // create super-admin role and grant all permissions
         $role = Role::create(['name' => 'Super Admin']);
         $role->givePermissionTo(Permission::all());
+
+        // create admin role and grant permissions
+        $role = Role::create(['name' => 'Admin']);
+        $role->givePermissionTo(Permission::all());
+
+        // create owner role and grant permissions
+        $role = Role::create(['name' => 'Owner']);
+        $role->givePermissionTo([
+            'create locations',
+            'view own locations',
+            'update own locations',
+            'delete own locations',
+        ]);
     }
 }
